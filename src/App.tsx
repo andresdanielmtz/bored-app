@@ -7,10 +7,11 @@ export default function App() {
   const [newTask, setNewTask] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const addTask = (e: React.MouseEvent) => {
+  const addTask = (e: React.MouseEvent | React.KeyboardEvent) => {
     e.preventDefault(); // Prevent the default behavior of the button
     setShowForm(true);
   };
+  console.log("Hello World");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +29,7 @@ export default function App() {
       (e as KeyboardEvent).key === "A"
     ) {
       if (!showForm) {
-        addTask(e as any); // TODO: Fix this
+        addTask(e as React.KeyboardEvent);
         setNewTask(""); // Clear the newTask value after submitting
       }
     }
@@ -40,7 +41,12 @@ export default function App() {
       handleSubmit(e);
     }
   };
+  
 
+  /**
+   * Deletes a task from the tasks array.
+   * @param {number} index - The index of the task to be deleted.
+   */
   const deleteTask = (index: number) => {
     const updatedTasks = [...tasks];
     updatedTasks.splice(index, 1);
