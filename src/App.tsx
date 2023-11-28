@@ -104,6 +104,18 @@ export default function App() {
         ))}
       </div>
       <footer>
+        <div id="instructions">
+          <h3 className="text-m font-bold"> Instructions </h3>
+          <ul className="text-xs">
+            <li>
+              Press <code> A </code> to add elements.
+            </li>
+            <li>
+              While typing, press <code> Enter </code> to add said task to the
+              list.
+            </li>
+          </ul>
+        </div>
         <h2 className="text-xs font-thin">
           {" "}
           Made by{" "}
