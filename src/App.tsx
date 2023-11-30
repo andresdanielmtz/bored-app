@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import Bored_Footer from "./components/footer/footer.tsx";
+import Bored_Title from "./components/title/title.tsx";
 export default function App() {
   const [tasks, setTasks] = useState<string[]>([]);
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -11,7 +12,6 @@ export default function App() {
     e.preventDefault(); // Prevent the default behavior of the button
     setShowForm(true);
   };
-  console.log("Hello World");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +57,14 @@ export default function App() {
     }
   };
 
+  /**
+   * Handles the keydown event on the input element.
+   * @param {React.KeyboardEvent<HTMLInputElement>} e - The event object.
+   * @returns {void}
+   * @description
+   * If the user presses the Enter key while the input element is focused, the form is submitted.
+   */
+  
   const handleInputKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -97,8 +105,7 @@ export default function App() {
   return (
     <>
       <div>
-        <h1 className="text-4xl font-bold"> To Be Bored </h1>
-        <h3 className="text-xs font-thin"> Another To-Do App </h3>
+        <Bored_Title />
 
         <button className="my-10" onClick={addTask}>
           Add Task

@@ -1,4 +1,8 @@
 export default function Bored_Footer() {
+  /**
+   * This footer includes the instructions and the link to my GitHub profile.
+   */
+
   return (
     <footer>
       <div id="instructions">
