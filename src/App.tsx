@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
-
+import Bored_Footer from "./components/footer/footer.tsx";
 export default function App() {
   const [tasks, setTasks] = useState<string[]>([]);
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -20,17 +20,39 @@ export default function App() {
     setShowForm(false);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent | KeyboardEvent) => {
-    if ((e as React.KeyboardEvent).key === "Enter" && showForm) {
+  /***
+   * Handles the keypress event.
+   * @param {React.KeyboardEvent<HTMLInputElement> | KeyboardEvent} e - The event object.
+   * @returns {void}
+   * @description
+   * If the user presses the Enter key while the form is visible, the form is submitted.
+   * If the user presses the Escape key while the form is visible, the form is hidden.
+   * If the user presses the A key while the form is hidden, the form is shown.
+   * If the user presses the D key while the form is hidden, the latest task is deleted.
+   */
+
+  const handleKeyPress = (
+    e: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent
+  ) => {
+    const isEnterKey = (key: string) => key === "Enter";
+    const isEscapeKey = (key: string) => key === "Escape";
+    const isAddKey = (key: string) => key === "a" || key === "A";
+    const isDeleteKey = (key: string) => key === "d" || key === "D";
+
+    const { key } = e as KeyboardEvent;
+
+    if (isEnterKey(key) && showForm) {
       e.preventDefault();
-      handleSubmit(e as React.FormEvent);
-    } else if (
-      (e as KeyboardEvent).key === "a" ||
-      (e as KeyboardEvent).key === "A"
-    ) {
-      if (!showForm) {
-        addTask(e as React.KeyboardEvent);
-        setNewTask(""); // Clear the newTask value after submitting
+      handleSubmit(e as any);
+    } else if (!showForm) {
+      if (isAddKey(key)) {
+        setShowForm(true);
+        addTask(e as any);
+        setNewTask("");
+      } else if (isEscapeKey(key)) {
+        setShowForm(false);
+      } else if (isDeleteKey(key)) {
+        deleteTask(tasks.length - 1);
       }
     }
   };
@@ -41,7 +63,6 @@ export default function App() {
       handleSubmit(e);
     }
   };
-  
 
   /**
    * Deletes a task from the tasks array.
@@ -109,31 +130,7 @@ export default function App() {
           </div>
         ))}
       </div>
-      <footer>
-        <div id="instructions">
-          <h3 className="text-m font-bold"> Instructions </h3>
-          <ul className="text-xs">
-            <li>
-              Press <code> A </code> to add elements.
-            </li>
-            <li>
-              While typing, press <code> Enter </code> to add said task to the
-              list.
-            </li>
-          </ul>
-        </div>
-        <h2 className="text-xs font-thin">
-          {" "}
-          Made by{" "}
-          <a
-            href="https://github.com/andresdanielmtz"
-            className="text-blue-500"
-          >
-            {" "}
-            @andresdanielmtz{" "}
-          </a>{" "}
-        </h2>
-      </footer>
+      <Bored_Footer />
     </>
   );
 }
