@@ -2,8 +2,9 @@ import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import Bored_Footer from "./components/footer/footer.tsx";
 import Bored_Title from "./components/title/title.tsx";
+
 export default function App() {
-  const [tasks, setTasks] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<string[]>([]); // Array of strings
   const [showForm, setShowForm] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -19,17 +20,6 @@ export default function App() {
     setNewTask(""); // Clear the newTask value after submitting
     setShowForm(false);
   };
-
-  /***
-   * Handles the keypress event.
-   * @param {React.KeyboardEvent<HTMLInputElement> | KeyboardEvent} e - The event object.
-   * @returns {void}
-   * @description
-   * If the user presses the Enter key while the form is visible, the form is submitted.
-   * If the user presses the Escape key while the form is visible, the form is hidden.
-   * If the user presses the A key while the form is hidden, the form is shown.
-   * If the user presses the D key while the form is hidden, the latest task is deleted.
-   */
 
   const handleKeyPress = (
     e: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent
@@ -57,14 +47,6 @@ export default function App() {
     }
   };
 
-  /**
-   * Handles the keydown event on the input element.
-   * @param {React.KeyboardEvent<HTMLInputElement>} e - The event object.
-   * @returns {void}
-   * @description
-   * If the user presses the Enter key while the input element is focused, the form is submitted.
-   */
-  
   const handleInputKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -72,10 +54,6 @@ export default function App() {
     }
   };
 
-  /**
-   * Deletes a task from the tasks array.
-   * @param {number} index - The index of the task to be deleted.
-   */
   const deleteTask = (index: number) => {
     const updatedTasks = [...tasks];
     updatedTasks.splice(index, 1);
@@ -102,6 +80,21 @@ export default function App() {
     }
   }, [showForm]);
 
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks).reverse());
+      console.log("storedTasks", storedTasks);
+      
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks.reverse()));
+    console.log("tasks", tasks);
+        
+  }, [tasks]);
+
   return (
     <>
       <div>
@@ -124,7 +117,7 @@ export default function App() {
           </form>
         )}
 
-        {tasks.reverse().map((task, index) => (
+        {tasks.map((task, index) => (
           <div
             key={index}
             className="flex flex-row items-center"
@@ -133,7 +126,13 @@ export default function App() {
             <button className="mx-10" onClick={() => deleteTask(index)}>
               x
             </button>
-            <p>{task}</p>
+            <div className="flex flex-row">
+              <p>{task}</p>
+
+              {/**
+               * <p className = "ml-10 font-thin ">{index + 1}</p>
+               */}
+            </div>
           </div>
         ))}
       </div>
