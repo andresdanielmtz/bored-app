@@ -83,16 +83,14 @@ export default function App() {
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
-      setTasks(JSON.parse(storedTasks).reverse());
+      setTasks(JSON.parse(storedTasks));
       console.log("storedTasks", storedTasks);
-      
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks.reverse()));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
     console.log("tasks", tasks);
-        
   }, [tasks]);
 
   return (
@@ -117,7 +115,7 @@ export default function App() {
           </form>
         )}
 
-        {tasks.map((task, index) => (
+        {tasks.reverse().map((task, index) => (
           <div
             key={index}
             className="flex flex-row items-center"
@@ -128,10 +126,6 @@ export default function App() {
             </button>
             <div className="flex flex-row">
               <p>{task}</p>
-
-              {/**
-               * <p className = "ml-10 font-thin ">{index + 1}</p>
-               */}
             </div>
           </div>
         ))}
