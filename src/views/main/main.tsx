@@ -97,15 +97,21 @@ export default function Main() {
   useEffect(() => {
     fetch("http://localhost:8000/message")
       .then((res) => res.json())
-      .then((data) => console.log(data.message));
+      .then((data) => {
+        console.log(data.based);
+        console.log(":D");
+        console.log(data.message);
+      });
   }, []);
-  
+
   useEffect(() => {
     fetch("http://localhost:8000/")
       .then((res) => res.json())
-      .then((data) => console.log(data.hello));
-  }, []);
-
+      .then((data) => {
+        console.log("DATOS")
+        console.log(data);
+      });
+  });
   return (
     <>
       <div>

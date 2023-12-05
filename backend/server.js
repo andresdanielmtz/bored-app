@@ -5,14 +5,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const tasks = { hello: "world" };
-
 app.get("/", (req, res) => {
-  res.json(tasks);
+  res.json({ based: process.env.SECRET_KEY, message: "Hello world!" });
 });
 
 app.get("/message", (req, res) => {
-  res.json({ message: "Hello world! [ExpressJS]" });
+  res.json({
+    message: "Hello world! [ExpressJS] [Firebase]",
+    based: process.env.PROJECTID,
+  });
 });
 
 const port = 8000;

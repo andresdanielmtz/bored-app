@@ -2,6 +2,13 @@ import http from "http";
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
+/**
+ * Loads environment variables from a .env file into process.env.
+ * Remove this line before pushing to production.
+ */
+import dotenv from "dotenv";
+dotenv.config();
+
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: process.env.APIKEY,
