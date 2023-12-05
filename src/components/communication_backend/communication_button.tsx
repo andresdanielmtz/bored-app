@@ -5,17 +5,18 @@ export default function CommunicationButton() {
 
   /**
    * This is the code that will be executed when the button is clicked.
-   * It will send a GET request to the backend server.S
+   * It will send a POST request to the backend server.
    */
 
   useEffect(() => {
-    fetch("http://localhost:8000/method")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    fetch("http://localhost:8000/method", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ based }),
+    });
   }, [based]);
-
 
   return (
     <>

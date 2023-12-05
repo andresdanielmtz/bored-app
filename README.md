@@ -2,7 +2,7 @@
 
 ## A TODO list. Made for personal use.
 
-### Instructions
+## Instructions
 
 Press the `A` key to add an element to your task list.
 Press `Enter` while typing to add it.
@@ -26,6 +26,6 @@ Use `npm run dev-backend` to start the development server.
 
 You can use `npm run based` to run both the front-end and the back-end at the same time.
 
-### License
+## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.

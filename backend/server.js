@@ -9,15 +9,10 @@ app.get("/", (req, res) => {
   res.json({ based: process.env.SECRET_KEY, message: "Hello world!" });
 });
 
-app.get("/method", (req, res) => {
-  res.json({ message: "Hello world! [300]" });
-  console.log(req.body);
-  res.sendStatus(200); // OK
-});
-
 app.post("/method", (req, res) => {
-  res.send("POST request to the homepage");
   console.log(req.body);
+
+  res.send("POST request to the homepage");
 });
 
 app.get("/message", (req, res) => {
