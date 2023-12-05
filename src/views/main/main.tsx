@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import SettingsButton from "../../components/settings_button/SettingsButton.tsx";
 import Bored_Footer from "../../components/footer/footer.tsx";
 import Bored_Title from "../../components/title/title.tsx";
+import CommunicationButton from "../../components/communication_backend/communication_button.tsx";
 
 export default function Main() {
   const [tasks, setTasks] = useState<string[]>([]); // Array of strings
@@ -108,13 +109,14 @@ export default function Main() {
     fetch("http://localhost:8000/")
       .then((res) => res.json())
       .then((data) => {
-        console.log("DATOS")
+        console.log("DATOS");
         console.log(data);
       });
   });
   return (
     <>
       <div>
+        <CommunicationButton />
         <Bored_Title />
 
         <button className="my-10" onClick={addTask}>
