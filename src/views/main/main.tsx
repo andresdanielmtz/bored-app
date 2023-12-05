@@ -20,7 +20,6 @@ export default function Main() {
     setTasks([newTask, ...tasks]);
     setNewTask(""); // Clear the newTask value after submitting
     setShowForm(false);
-    
   };
 
   const handleKeyPress = (
@@ -94,6 +93,18 @@ export default function Main() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     console.log("tasks", tasks);
   }, [tasks]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/message")
+      .then((res) => res.json())
+      .then((data) => console.log(data.message));
+  }, []);
+  
+  useEffect(() => {
+    fetch("http://localhost:8000/")
+      .then((res) => res.json())
+      .then((data) => console.log(data.hello));
+  }, []);
 
   return (
     <>
