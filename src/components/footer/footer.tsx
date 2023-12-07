@@ -23,7 +23,11 @@ export default function Bored_Footer() {
       <h2 className="text-xs font-thin">
         {" "}
         Made by{" "}
-        <a href="https://github.com/andresdanielmtz" className="text-blue-500">
+        <a
+          href="https://github.com/andresdanielmtz"
+          className="text-blue-500"
+          target="_blank"
+        >
           {" "}
           @andresdanielmtz{" "}
         </a>{" "}
