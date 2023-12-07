@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
+/**
+ * This is the Task component. It is still and development and has not been used.
+ */
 interface TaskProps {
   task: string;
   index: number;
