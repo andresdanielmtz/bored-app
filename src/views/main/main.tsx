@@ -6,7 +6,7 @@ import Bored_Title from "../../components/title/title.tsx";
 import CommunicationButton from "../../components/communication_backend/communication_button.tsx";
 
 export default function Main() {
-  const [tasks, setTasks] = useState<string[]>([]); // Array of strings
+  const [tasks, setTasks] = React.useState<string[]>([]);
   const [showForm, setShowForm] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,9 +16,27 @@ export default function Main() {
     setShowForm(true);
   };
 
+  /**
+   * Handles the form submission.
+   *
+   * @param e - The form event.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setTasks([newTask, ...tasks]);
+
+    fetch("http://localhost:8000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: newTask }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+
     setNewTask(""); // Clear the newTask value after submitting
     setShowForm(false);
   };
@@ -59,6 +77,17 @@ export default function Main() {
   const deleteTask = (index: number) => {
     const updatedTasks = [...tasks];
     updatedTasks.splice(index, 1);
+    fetch("http://localhost:8000/tasksDelete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: tasks[index] }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
     setTasks(updatedTasks);
   };
 
@@ -83,36 +112,14 @@ export default function Main() {
   }, [showForm]);
 
   useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-      console.log("storedTasks", storedTasks);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    console.log("tasks", tasks);
-  }, [tasks]);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/message")
+    fetch("http://localhost:8000/tasks")
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data.based);
-        console.log(":D");
-        console.log(data.message);
+      .then((data): void => {
+        const newTasks: string[] = data.map((task: any) => task.message);
+        setTasks(newTasks);
       });
   }, []);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("DATOS");
-        console.log(data);
-      });
-  });
   return (
     <>
       <div>
