@@ -13,12 +13,15 @@ Press `D` to delete the latest element added.
 Before doing anything, be sure to have [Node.js](https://nodejs.org/en/) installed on your machine.
 Also use `npm i` to install the dependencies of the project.
 
+> For the backend to work, use `cd backend` and `npm i` to install the dependencies located in the backend folder
+
 ### Front-End
 
 Use `npm run dev` to start the development server.
 You can also use `npm run build` to build the project.
 
 ### Back-End
+
 
 Use `npm run dev-backend` to start the development server.
 
